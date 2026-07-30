@@ -2,50 +2,73 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Vasconcellos Automotriz — Inventario</title>
+  <title>Vasconcellos Automotriz — Control de Inventario</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="tema-azul">
-  <!-- ============================================================
-       SIDEBAR
-  ============================================================ -->
-  <aside class="sidebar">
-    <h2 class="logo">🚗 Vasconcellos</h2>
 
-    <div class="menu-item" onclick="clickInventario()">
-      Inventario
-      <span class="arrow" id="arrow-inv">▸</span>
-    </div>
+<div class="wrapper">
+  <!--====================
+      UNIFIED SIDEBAR
+  =====================-->
+  <aside class="sb" id="sidebar">
+      <div class="sidebar-header">
+          <div class="logo-container">
+              <div class="logo-icon-solid">
+                  <i class="fa-solid fa-car-side"></i>
+              </div>
+              <span class="logo-text">Vasconcellos</span>
+          </div>
+          <button id="toggle" class="toggle-btn" title="Alternar menú">
+              <i class="fa-solid fa-bars"></i>
+          </button>
+      </div>
 
-    <div class="submenu" id="submenu-inventario"></div>
+      <div class="slbl">Módulos principales</div>
+      <div class="nav-list">
+          <button id="menu-inventario" class="ni act" onclick="clickInventario()">
+              <i class="fa-solid fa-boxes-stacked"></i>
+              <span>Inventario</span>
+              <i class="fa-solid fa-angle-right arrow-indicator" id="arrow-inv"></i>
+          </button>
+          
+          <div class="submenu" id="submenu-inventario"></div>
 
-    <div class="menu-item" onclick="mostrarVentas()">
-      Ventas
-      <span class="arrow">▸</span>
-    </div>
+          <button id="menu-ventas" class="ni" onclick="mostrarVentas()">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span>Ventas</span>
+          </button>
 
-    <div class="menu-item" onclick="mostrarCompras()">
-      Compras
-      <span class="arrow">▸</span>
-    </div>
+          <button id="menu-compras" class="ni" onclick="mostrarCompras()">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <span>Compras</span>
+          </button>
 
-    <div class="menu-item" onclick="mostrarLavados()">
-      Lavados / Servicios
-      <span class="arrow">▸</span>
-    </div>
+          <button id="menu-lavados" class="ni" onclick="mostrarLavados()">
+              <i class="fa-solid fa-shower"></i>
+              <span>Lavados / Servicios</span>
+          </button>
+      </div>
 
-    <div class="menu-item" onclick="mostrarMovimientos()">
-      Movimientos
-      <span class="arrow">▸</span>
-    </div>
+      <div class="slbl" style="margin-top: auto;">Sistema</div>
+      <div class="nav-list" style="margin-bottom: 24px;">
+          <button id="menu-movimientos" class="ni" onclick="mostrarMovimientos()">
+              <i class="fa-solid fa-right-left"></i>
+              <span>Movimientos</span>
+          </button>
 
-    <div class="menu-item" onclick="mostrarAjustes()">
-      Ajustes
-      <span class="arrow">⚙️</span>
-    </div>
+          <button id="menu-ajustes" class="ni" onclick="mostrarAjustes()">
+              <i class="fa-solid fa-gear"></i>
+              <span>Ajustes</span>
+          </button>
+      </div>
   </aside>
 
   <!-- ============================================================
@@ -198,7 +221,7 @@
     </section>
 
     <!-- ============================================================
-         MOVIMIENTOS (MITAD MITAD)
+         MOVIMIENTOS
     ============================================================ -->
     <section id="movimientos" class="content">
       <h2>Movimientos</h2>
@@ -223,7 +246,8 @@
     </section>
 
   </main>
+</div>
 
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

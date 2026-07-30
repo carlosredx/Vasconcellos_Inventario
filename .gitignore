@@ -1,0 +1,36 @@
+# ============================================================
+# ARCHIVO .gitignore — VASCONCELLOS AUTOMOTRIZ
+# ============================================================
+
+# Entornos virtuales y Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+ENV/
+
+# Base de datos local autogenerada
+*.db
+*.sqlite
+*.sqlite3
+backend/database.db
+
+# Configuración local de entorno (se sube únicamente .env.example)
+.env
+backend/.env
+!.env.example
+!backend/.env.example
+
+# IDEs y configuración de editores
+.vscode/
+.idea/
+.qodo/
+.gemini/
+.DS_Store
+
+# Archivos de caché y logs
+*.log
+*.tmp
+*.bak

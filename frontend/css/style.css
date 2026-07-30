@@ -1,5 +1,5 @@
 /* ============================================================
-   ESTILOS GENERALES
+   ESTILOS GENERALES — VASCONCELLOS AUTOMOTRIZ
 ============================================================ */
 
 * {
@@ -36,76 +36,207 @@ body {
 }
 
 /* ============================================================
-   SIDEBAR
+   VARIABLES DE TEMA (LISTA DE TAREAS)
 ============================================================ */
-
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 240px;
-  background: radial-gradient(circle at top, #202020 0, #111 50%, #080808 100%);
-  padding: 22px 18px;
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 4px 0 18px rgba(0, 0, 0, 0.6);
-  overflow-y: auto;
+:root {
+  /* Integración con el motor de temas de Vasconcellos */
+  --color-background-primary:   var(--color-cards);
+  --color-background-secondary: rgba(255, 255, 255, 0.03);
+  --color-background-tertiary:  var(--color-fondo);
+  --color-border-primary:       rgba(255, 255, 255, 0.15);
+  --color-border-secondary:     rgba(255, 255, 255, 0.1);
+  --color-border-tertiary:      rgba(255, 255, 255, 0.05);
+  
+  --color-text-primary:         #ffffff;
+  --color-text-secondary:       #cbd5e1;
+  --color-text-tertiary:        #94a3b8;
+  
+  --color-background-info:      rgba(255, 255, 255, 0.08);
+  --color-text-info:            var(--color-secundario);
+  --color-border-info:          var(--color-primario);
+  
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
 }
 
-.logo {
-  font-size: 1.8rem;
-  text-align: center;
-  margin-bottom: 26px;
-  font-weight: 700;
+.wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--color-background-tertiary);
 }
 
-/* item del menú */
-.menu-item {
-  padding: 11px 12px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.02);
-  cursor: pointer;
+/* ─── Sidebar ──────────────────────────────────────────────────────────────── */
+.sb {
+  position: relative;
+  width: 280px; flex-shrink: 0;
+  background: var(--color-background-primary);
+  border-right: 1px solid var(--color-border-tertiary);
+  padding: 24px 14px;
+  display: flex; flex-direction: column; gap: 4px;
+  height: 100vh; overflow-y: auto; overflow-x: hidden;
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+}
+.sb.collapsed { width: 85px; }
+
+/* ─── Sidebar Header & Logo Anim ────────────────────────────────────── */
+.sidebar-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+  gap: 16px;
+  margin-bottom: 24px;
+  white-space: nowrap;
 }
 
-.menu-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 10px var(--color-primario, #3b82f6);
-  transform: translateY(-1px);
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: opacity 0.3s;
 }
 
-.arrow {
-  font-size: 0.9rem;
-  opacity: 0.8;
+.logo-icon-solid {
+  width: 38px;
+  height: 38px;
+  background: var(--color-background-info);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-text-info);
+  font-size: 20px;
 }
 
-/* Submenú */
-.submenu {
-  margin-top: 8px;
-  margin-bottom: 16px;
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+  opacity: 1;
+  transition: opacity 0.3s;
 }
 
-.submenu button {
-  width: 100%;
-  padding: 9px 10px;
-  margin-bottom: 6px;
-  border-radius: 8px;
+.sb .logo-text,
+.sb .slbl,
+.sb .ni span { 
+  opacity: 1;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+
+.sb.collapsed .logo-text,
+.sb.collapsed .logo-container,
+.sb.collapsed .slbl,
+.sb.collapsed .ni span { 
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sb .ni i { flex-shrink: 0; }
+
+.toggle-btn {
+  width: 45px;
+  height: 45px;
   border: none;
-  background: rgba(255, 255, 255, 0.03);
-  color: #f0f0f0;
+  outline: none;
+  border-radius: 12px;
   cursor: pointer;
-  text-align: left;
-  font-size: 0.92rem;
-  transition: background 0.2s, transform 0.1s;
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+  font-size: 20px;
+  transition: .35s;
+  position: absolute;
+  right: 14px;
+  top: 24px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.toggle-btn:hover {
+  background: var(--color-background-info);
+  color: var(--color-text-info);
+}
+
+.sb.collapsed .ni i { margin: 0; }
+
+/* ─── Section Label ────────────────────────────────────────────────────────── */
+.slbl {
+  font-size: 11px; color: var(--color-text-tertiary);
+  letter-spacing: 1px; padding: 18px 14px 6px;
+  text-transform: uppercase; font-weight: 700; width: 100%;
+}
+
+.nav-list {
+  display: flex; flex-direction: column; gap: 4px;
+}
+
+/* ─── Nav Item ─────────────────────────────────────────────────────────────── */
+.ni {
+  display: flex; align-items: center;
+  padding: 11px 14px; border-radius: var(--border-radius-sm);
+  cursor: pointer; font-size: 14px; font-weight: 500;
+  color: var(--color-text-secondary);
+  border: none; background: transparent;
+  width: 100%; text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+.ni i {
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+.ni span {
+  margin-left: 12px;
+}
+.ni:hover       { background: var(--color-background-secondary); color: var(--color-text-primary); }
+.ni.act         { background: var(--color-background-info); color: var(--color-text-info); font-weight: 600; }
+
+/* Submenu toggle specific to Vasconcellos */
+.submenu {
+    display: none;
+    padding-left: 54px; /* Align with text */
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.submenu button {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    background: var(--color-background-secondary);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.9rem;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+    opacity: 0;
+}
+.sb:not(.collapsed) .submenu button {
+    opacity: 1;
+}
 .submenu button:hover {
-  background: rgba(255, 255, 255, 0.09);
-  transform: translateX(1px);
+    background: var(--color-background-info);
+    color: var(--color-text-info);
+    transform: translateX(2px);
+}
+.arrow-indicator {
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.sb:not(.collapsed) .arrow-indicator {
+    opacity: 1;
 }
 
 /* ============================================================
@@ -113,8 +244,10 @@ body {
 ============================================================ */
 
 .main {
-  margin-left: 240px;
-  padding: 28px 30px 150px 30px;
+  flex: 1;
+  background: var(--color-background-tertiary);
+  padding: 36px 48px;
+  min-width: 0;
   height: 100vh;
   overflow-y: auto;
 }
@@ -333,12 +466,10 @@ select:focus {
   box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5);
 }
 
-/* Espacio extra en Ajustes entre selector y botón */
 #temaSelect {
   margin: 10px 0 18px 0;
 }
 
-/* Botón principal reutilizable */
 .btn-primary {
   grid-column: 1 / 3;
   padding: 12px;
@@ -373,7 +504,6 @@ select:focus {
   animation: cardFadeUp 0.35s ease;
 }
 
-/* animación entrada de cards */
 @keyframes cardFadeUp {
   from {
     opacity: 0;
@@ -385,7 +515,6 @@ select:focus {
   }
 }
 
-/* Header del mes más interactivo */
 .mes-header {
   cursor: pointer;
   font-size: 1rem;
@@ -401,7 +530,6 @@ select:focus {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-/* Layout interno del header (texto + flecha) */
 .mes-header-row {
   display: flex;
   justify-content: space-between;
@@ -436,12 +564,10 @@ select:focus {
   transition: transform 0.25s ease;
 }
 
-/* Cuando está abierto el acordeón */
 .mes-header.activo .mes-arrow {
   transform: rotate(180deg);
 }
 
-/* Contenido del mes con animación (acordeón suave) */
 .mes-contenido {
   margin-top: 10px;
   padding-top: 10px;
@@ -453,11 +579,10 @@ select:focus {
 }
 
 .mes-contenido.activo {
-  max-height: 2000px; /* suficiente para varios items */
+  max-height: 2000px;
   opacity: 1;
 }
 
-/* Tags para montos */
 .tag-ventas {
   color: #4ade80;
   font-weight: 600;
@@ -480,7 +605,7 @@ select:focus {
   color: #f97373;
 }
 
-/* BARRAS SUPERIORES — ESTILO PREMIUM AAAAAAA*/
+/* BARRAS SUPERIORES */
 .mini-bars {
   margin-top: 12px;
   margin-bottom: 16px;
@@ -489,64 +614,31 @@ select:focus {
   gap: 10px;
   padding: 10px;
   border-radius: 12px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* barras más gruesas */
-.mini-bar {
-  height: 10px;
-  border-radius: 999px;
-  overflow: hidden;
-  box-shadow: 0 0 8px rgba(0,0,0,0.4) inset;
-}
-
-
-/* Grosor y estilo base de cada barra */
-.mini-bar {
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-}
-/* CONTENEDOR DE LAS BARRAS SUPERIORES (RESUMEN MES) */
-.mini-bars {
-  margin-top: 12px;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 10px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-/* barras un poco más gruesas */
 .mini-bar {
   height: 8px;
   border-radius: 999px;
   overflow: hidden;
 }
 
-/* Colores: */
 .mini-bar-ventas {
-  background: linear-gradient(90deg, #22c55e, #4ade80); /* verde */
+  background: linear-gradient(90deg, #22c55e, #4ade80);
 }
 .mini-bar-compras {
-  background: linear-gradient(90deg, #facc15, #f97316); /* naranja */
+  background: linear-gradient(90deg, #facc15, #f97316);
 }
 .mini-bar-lavados {
-  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* azul */
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
 }
 
 /* ============================================================
-   MOVIMIENTOS — DOS COLUMNAS (MITAD Y MITAD)
+   MOVIMIENTOS — DOS COLUMNAS
 ============================================================ */
 
-/* MITAD Y MITAD — MOVIMIENTOS PRO */
 .mov-columns {
   display: flex;
   justify-content: space-between;
@@ -564,17 +656,10 @@ select:focus {
   box-shadow: 0 0 18px rgba(0, 0, 0, 0.55);
 }
 
-
-
-/* Ambas columnas alineadas exactamente igual */
 .mov-col,
 .mov-col.compras {
   margin-top: 0 !important;
   padding-top: 0 !important;
-}
-
-.mov-columns {
-  align-items: flex-start; /* asegura alineación superior */
 }
 
 .mov-compras-title {
@@ -583,6 +668,9 @@ select:focus {
   padding: 8px 12px;
   border-radius: 8px;
   margin-bottom: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: .3px;
 }
 
 .mov-ventas-title {
@@ -591,9 +679,11 @@ select:focus {
   padding: 8px 12px;
   border-radius: 8px;
   margin-bottom: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: .3px;
 }
 
-/* Items de movimientos / ventas / compras / lavados */
 .venta-item {
   background: #1d1d28;
   padding: 12px;
@@ -609,7 +699,6 @@ select:focus {
   opacity: 0;
 }
 
-/* animación sutil de entrada de cada item */
 @keyframes itemEnter {
   from {
     opacity: 0;
@@ -621,32 +710,27 @@ select:focus {
   }
 }
 
-/* Contenido a la izquierda (texto ordenado) */
 .venta-info {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-/* Nombre del producto */
 .venta-producto {
   font-weight: 600;
   margin-bottom: 2px;
 }
 
-/* Línea de detalles (cantidad, precio, total) */
 .venta-detalle {
   font-size: 0.85rem;
   opacity: 0.9;
 }
 
-/* Fecha abajo, más suave */
 .venta-fecha {
   font-size: 0.8rem;
   opacity: 0.7;
 }
 
-/* bordes por tipo en columnas de movimientos */
 .mov-col.compras .venta-item {
   border-left: 4px solid #f97316;
 }
@@ -654,7 +738,6 @@ select:focus {
   border-left: 4px solid #22c55e;
 }
 
-/* Para lavados (usamos un tono azulado) */
 .lavado-item {
   background: #111827;
   border-radius: 10px;
@@ -663,16 +746,11 @@ select:focus {
   margin-bottom: 8px;
 }
 
-/* Hover general item */
 .venta-item:hover {
   background: #242437;
   transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
-
-/* ============================================================
-   BOTÓN ELIMINAR
-============================================================ */
 
 .boton-eliminar {
   background: #e11d48;
@@ -690,17 +768,12 @@ select:focus {
   transform: scale(1.05);
 }
 
-/* ============================================================
-   LAVADOS HOY
-============================================================ */
-
 #lavadosHoy .mes-card {
   background: #111827;
 }
 
-/* Para el bloque especial lavados pro (borde azul) */
 .lavado-pro {
-  border-left: 4px solid #3b82f6; /* azul profesional */
+  border-left: 4px solid #3b82f6;
 }
 
 /* ============================================================
@@ -708,18 +781,9 @@ select:focus {
 ============================================================ */
 
 @media (max-width: 900px) {
-  .sidebar {
-    width: 200px;
-  }
-
-  .main {
-    margin-left: 200px;
-  }
-
   .form-grid {
     grid-template-columns: 1fr;
   }
-
   .mov-columns {
     flex-direction: column;
   }
@@ -729,31 +793,19 @@ select:focus {
 }
 
 @media (max-width: 680px) {
-  .sidebar {
-    position: static;
-    width: 100%;
-  }
-
-  .main {
-    margin-left: 0;
-    padding: 18px;
-  }
-
   .fila-buscador {
     flex-direction: column;
     align-items: stretch;
   }
-
   .btn-agregar {
     align-self: flex-end;
   }
 }
 
 /* ============================================================
-   TEMAS (DINÁMICOS)
+   TEMAS DINÁMICOS
 ============================================================ */
 
-/* Tema azul (default) */
 body.tema-azul {
   --color-primario: #3b82f6;
   --color-secundario: #60a5fa;
@@ -761,7 +813,6 @@ body.tema-azul {
   --color-cards: #13131b;
 }
 
-/* Tema verde */
 body.tema-verde {
   --color-primario: #22c55e;
   --color-secundario: #4ade80;
@@ -769,7 +820,6 @@ body.tema-verde {
   --color-cards: #0f1a12;
 }
 
-/* Tema rojo */
 body.tema-rojo {
   --color-primario: #ef4444;
   --color-secundario: #f87171;
@@ -777,7 +827,6 @@ body.tema-rojo {
   --color-cards: #1f0c0c;
 }
 
-/* Tema morado */
 body.tema-morado {
   --color-primario: #a855f7;
   --color-secundario: #c084fc;
@@ -785,15 +834,11 @@ body.tema-morado {
   --color-cards: #1d152b;
 }
 
-/* ============================================================
-   APLICAR COLORES DE TEMA
-============================================================ */
-
 body {
   background: var(--color-fondo) !important;
+  background-attachment: fixed !important;
 }
 
-/* Botón principal */
 .btn-primary {
   background: linear-gradient(
     90deg,
@@ -802,82 +847,59 @@ body {
   ) !important;
 }
 
-/* Cards de meses */
 .mes-card,
 .card-venta {
   background: var(--color-cards) !important;
 }
 
-/* Hover en botones de la tabla */
 td button:hover {
   background: var(--color-primario) !important;
 }
 
-/* Inputs focus */
 input:focus,
 select:focus {
   border-color: var(--color-primario) !important;
   box-shadow: 0 0 4px var(--color-primario) !important;
 }
 
-/* Hover menú lateral */
 .menu-item:hover {
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 10px var(--color-primario);
 }
 
-/* Cards de los meses más elegantes */
 .mes-card {
   margin-top: 26px !important;
   padding-top: 12px;
   border-radius: 16px !important;
-  background: rgba(255,255,255,0.03) !important;
-  border: 1px solid rgba(255,255,255,0.08) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   backdrop-filter: blur(8px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
-.mov-ventas-title,
-.mov-compras-title {
-  font-size: 1.05rem;
-  margin-bottom: 12px;
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-weight: 600;
-  letter-spacing: .3px;
-}
-/* VENTAS — borde verde como en movimientos */
 .venta-pro-venta {
   border-left: 4px solid #22c55e !important;
 }
 
-/* COMPRAS — borde naranjo como en movimientos */
 .venta-pro-compra {
   border-left: 4px solid #f97316 !important;
 }
-
 
 .tag-lavados {
   color: #5cc8ff;
   font-weight: bold;
 }
-/* COLOR DORADO PARA TOTAL COMPRAS */
+
 .tag-compras-pro {
   color: #fbbf24;
   font-weight: 700;
 }
 
-/* BORDE NARANJA PROFESIONAL EN CADA ITEM */
 .compra-pro {
   border-left: 4px solid #f97316 !important;
 }
-/* COLOR VERDE PARA TOTAL VENTAS */
+
 .tag-ventas-pro {
   color: #4ade80;
   font-weight: 700;
-}
-
-/* BORDE VERDE EN CADA VENTA */
-.venta-pro-venta {
-  border-left: 4px solid #22c55e !important;
 }
