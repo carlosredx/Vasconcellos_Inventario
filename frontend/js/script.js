@@ -6,7 +6,7 @@
 const IS_LOCAL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "file:";
 
 // IMPORTANTE: Reemplaza esta URL con la URL de tu backend desplegado en Render / Cloud Run
-const PRODUCTION_API = "https://tu-backend-vasconcellos.onrender.com";
+const PRODUCTION_API = "https://vasconcellos-inventario.onrender.com";
 
 const API = IS_LOCAL ? "http://127.0.0.1:5000" : PRODUCTION_API;
 
