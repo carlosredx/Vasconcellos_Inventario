@@ -12,49 +12,45 @@ Antes de comenzar, asegúrate de tener instalado:
 
 ---
 
-## 📥 Instalación y Puesta en Marcha (Paso a Paso)
+## 📥 Instalación y Pruebas Locales (Paso a Paso)
 
-Sigue estos sencillos pasos para poner a funcionar el proyecto tras clonarlo desde GitHub:
+Este proyecto está configurado para funcionar **automáticamente con SQLite** en tu computadora local para que puedas desarrollar y hacer pruebas sin necesidad de configurar un servidor de base de datos.
 
-### 1. Clonar el Repositorio
-```bash
-git clone <URL_DE_TU_REPOSITORIO>
-cd "Vasconcellos - Control de inventario"
-```
-
-### 2. Crear el Archivo de Configuración `.env`
-Copia la plantilla de variables de entorno `.env.example` para crear tu propio archivo `.env` local:
-
-**En Windows (PowerShell / CMD):**
-```powershell
-copy backend\.env.example backend\.env
-```
-
-**En Linux / Mac / Git Bash:**
-```bash
-cp backend/.env.example backend/.env
-```
-
-### 3. Instalar las Dependencias de Python
-Instala los paquetes necesarios ejecutando:
+### 1. Instalar las Dependencias
+Como hemos actualizado el proyecto para soportar PostgreSQL en la nube, es vital instalar las nuevas dependencias (si ya lo hiciste antes, hazlo de nuevo):
 ```bash
 pip install -r backend/requirements.txt
 ```
 
-### 4. Inicializar la Base de Datos Local
-Ejecuta el script para crear las tablas y cargar los productos base de Vasconcellos Automotriz:
+### 2. Inicializar la Base de Datos Local (SQLite)
+Ejecuta el script para crear las tablas y cargar los productos base de Vasconcellos Automotriz en un archivo local (`database.db`):
 ```bash
 python backend/database_schema/init_db.py
 ```
 
-### 5. Iniciar el Servidor Backend
+### 3. Iniciar el Servidor Backend
 Inicia el servidor backend en ejecución:
 ```bash
 python backend/run.py
 ```
 
-El servidor estará listo y escuchando en:
-👉 **`http://127.0.0.1:5000`**
+El servidor estará listo y escuchando en: 👉 **`http://127.0.0.1:5000`**
+
+### 4. Acceder al Frontend Local
+Abre el archivo `frontend/index.html` en tu navegador usando **Live Server** (en VS Code). Se conectará automáticamente a tu API local.
+
+---
+
+## ☁️ Simular Producción con PostgreSQL (Opcional)
+
+Si alguna vez quieres probar la aplicación localmente apuntando a tu base de datos **Neon (PostgreSQL)** en lugar de SQLite:
+1. Asegúrate de tener tu archivo `backend/.env` (puedes copiar el `.env.example`).
+2. Añade o modifica estas líneas:
+   ```env
+   DB_ENGINE=postgresql
+   DATABASE_URL=postgres://tu_usuario:tu_password@ep-tu-host.neon.tech/vasconcellos-db?sslmode=require
+   ```
+3. Reinicia el servidor backend (`python backend/run.py`).
 
 ---
 
