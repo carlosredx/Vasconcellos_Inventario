@@ -428,8 +428,8 @@ td button:hover {
    MODALES (SWEETALERT2 CUSTOM)
 ============================================================ */
 .swal2-popup.swal-dark {
-  background: var(--color-background-primary);
-  color: var(--color-text-primary);
+  background: var(--color-cards, #13131b) !important;
+  color: #ffffff !important;
   border: 1px solid var(--color-border-primary);
   border-radius: var(--border-radius-lg);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
@@ -443,8 +443,8 @@ td button:hover {
 }
 
 .custom-swal-input {
-  background: var(--color-background-tertiary) !important;
-  color: var(--color-text-primary) !important;
+  background: var(--color-fondo, #0c0c0f) !important;
+  color: #ffffff !important;
   border: 1px solid var(--color-border-secondary) !important;
   border-radius: var(--border-radius-sm) !important;
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.5) !important;
@@ -474,7 +474,7 @@ td button:hover {
   font-size: 0.9rem;
   margin-top: 8px;
   margin-bottom: 6px;
-  color: var(--color-text-secondary);
+  color: #cbd5e1 !important;
   font-weight: 500;
 }
 
@@ -908,11 +908,10 @@ select:focus {
   }
   .table-responsive {
     width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    /* overflow-x quitado para que no haga scroll si no es necesario */
   }
   table {
-    min-width: 600px; /* Force table to be wider than screen on mobile to allow scroll */
+    width: 100%;
   }
   
   /* Fix logo opacity when not collapsed on mobile */
@@ -935,6 +934,23 @@ select:focus {
   }
   .ni {
     flex: 1 1 100%;
+  }
+  
+  /* Achicar tabla para que quepa en celular sin scroll */
+  th, td {
+    padding: 8px 4px !important;
+    font-size: 0.8rem !important;
+  }
+  /* Ocultar ID y Categoría en celular para ganar espacio */
+  th:nth-child(1), td:nth-child(1),
+  th:nth-child(3), td:nth-child(3) {
+    display: none !important;
+  }
+  /* Achicar botones de acciones */
+  td button {
+    padding: 4px 6px !important;
+    font-size: 0.8rem !important;
+    margin: 0 1px !important;
   }
 }
 
