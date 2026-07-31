@@ -46,7 +46,7 @@ function etiquetaMesClave(f) {
     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
   ];
-  const mesNumero = d.getMonth() + 1;
+  const mesNumero = String(d.getMonth() + 1).padStart(2, "0");
   return {
     clave: `${d.getFullYear()}-${mesNumero}`,
     label: `${meses[d.getMonth()]} ${d.getFullYear()}`,
@@ -558,7 +558,7 @@ async function cargarVentas() {
       meses[em.clave].detalle.push(v);
     });
 
-    const claves = Object.keys(meses).sort();
+    const claves = Object.keys(meses).sort().reverse();
     claves.forEach((k) => {
       const m = meses[k];
       const card = document.createElement("div");
@@ -737,7 +737,7 @@ async function cargarCompras() {
       meses[em.clave].detalle.push(c);
     });
 
-    const claves = Object.keys(meses).sort();
+    const claves = Object.keys(meses).sort().reverse();
     claves.forEach((k) => {
       const m = meses[k];
       const card = document.createElement("div");
@@ -875,7 +875,7 @@ async function cargarMovimientos() {
       meses[em.clave].lavados.push(l);
     });
 
-    const claves = Object.keys(meses).sort();
+    const claves = Object.keys(meses).sort().reverse();
     cont.innerHTML = "";
 
     if (claves.length === 0) {
