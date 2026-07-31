@@ -1100,12 +1100,29 @@ document.addEventListener("DOMContentLoaded", async () => {
   const temaGuardado = localStorage.getItem("temaVasconcellos") || "azul";
   aplicarTema(temaGuardado);
 
+  const loadingText = document.querySelector(".loading-text");
+  const messages = [
+    "Conectando a la base de datos...",
+    "Encendiendo motores del servidor (puede tardar unos 30 seg)...",
+    "Afinando detalles, casi listos...",
+    "Preparando el inventario para ti..."
+  ];
+  let messageIndex = 0;
+  
+  const loadingInterval = setInterval(() => {
+    if (loadingText) {
+      messageIndex = (messageIndex + 1) % messages.length;
+      loadingText.textContent = messages[messageIndex];
+    }
+  }, 7000); // Cambia de mensaje cada 7 segundos
+
   try {
     await mostrar();
     await cargarCategorias();
   } catch (error) {
     console.error("Error en la carga inicial:", error);
   } finally {
+    clearInterval(loadingInterval);
     const loadingOverlay = document.getElementById("loading-overlay");
     if (loadingOverlay) {
       loadingOverlay.classList.add("hidden");
