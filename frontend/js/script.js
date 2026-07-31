@@ -1100,8 +1100,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   const temaGuardado = localStorage.getItem("temaVasconcellos") || "azul";
   aplicarTema(temaGuardado);
 
-  await mostrar();
-  await cargarCategorias();
+  try {
+    await mostrar();
+    await cargarCategorias();
+  } catch (error) {
+    console.error("Error en la carga inicial:", error);
+  } finally {
+    const loadingOverlay = document.getElementById("loading-overlay");
+    if (loadingOverlay) {
+      loadingOverlay.classList.add("hidden");
+      setTimeout(() => {
+        loadingOverlay.remove();
+      }, 600);
+    }
+  }
+  
   mostrarDashboard();
 });
 
