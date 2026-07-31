@@ -1058,7 +1058,11 @@ function initMenu() {
     const toggle = document.getElementById("toggle");
     if(toggle && sidebar) {
         toggle.addEventListener("click", () => {
-            sidebar.classList.toggle("collapsed");
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle("mobile-open");
+            } else {
+                sidebar.classList.toggle("collapsed");
+            }
         });
     }
 }
