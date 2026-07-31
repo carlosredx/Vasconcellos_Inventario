@@ -208,20 +208,20 @@ async function abrirAgregarProducto() {
       <div style="display:flex; flex-direction:column; gap:10px;">
         <div>
           <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Nombre del producto</label>
-          <input id="swal-nombre" class="swal2-input" placeholder="Ej: Aceite 10W-40" style="margin:0; width:100%; box-sizing:border-box;">
+          <input id="swal-nombre" class="custom-swal-input" placeholder="Ej: Aceite 10W-40" style="margin:0; width:100%; box-sizing:border-box;">
         </div>
         <div>
           <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Categoría / Etiqueta</label>
-          <input id="swal-etiqueta" class="swal2-input" placeholder="Ej: Aceite Motor..." style="margin:0; width:100%; box-sizing:border-box;">
+          <input id="swal-etiqueta" class="custom-swal-input" placeholder="Ej: Aceite Motor..." style="margin:0; width:100%; box-sizing:border-box;">
         </div>
         <div style="display:flex; gap:10px;">
           <div style="flex:1;">
             <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Stock inicial</label>
-            <input id="swal-stock" type="number" class="swal2-input" value="0" style="margin:0; width:100%; box-sizing:border-box;">
+            <input id="swal-stock" type="number" class="custom-swal-input" value="0" style="margin:0; width:100%; box-sizing:border-box;">
           </div>
           <div style="flex:1;">
             <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Precio</label>
-            <input id="swal-precio" type="number" class="swal2-input" value="0" style="margin:0; width:100%; box-sizing:border-box;">
+            <input id="swal-precio" type="number" class="custom-swal-input" value="0" style="margin:0; width:100%; box-sizing:border-box;">
           </div>
         </div>
       </div>
@@ -282,20 +282,20 @@ async function editarProducto(id) {
       <div style="display:flex; flex-direction:column; gap:10px;">
         <div>
           <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Nombre del producto</label>
-          <input id="swal-nombre" class="swal2-input" value="${p.nombre_producto.replace(/"/g, '&quot;')}" style="margin:0; width:100%; box-sizing:border-box;">
+          <input id="swal-nombre" class="custom-swal-input" value="${p.nombre_producto.replace(/"/g, '&quot;')}" style="margin:0; width:100%; box-sizing:border-box;">
         </div>
         <div>
           <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Categoría / Etiqueta</label>
-          <input id="swal-etiqueta" class="swal2-input" value="${(p.etiqueta || '').replace(/"/g, '&quot;')}" style="margin:0; width:100%; box-sizing:border-box;">
+          <input id="swal-etiqueta" class="custom-swal-input" value="${(p.etiqueta || '').replace(/"/g, '&quot;')}" style="margin:0; width:100%; box-sizing:border-box;">
         </div>
         <div style="display:flex; gap:10px;">
           <div style="flex:1;">
             <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Stock</label>
-            <input id="swal-stock" type="number" class="swal2-input" value="${p.stock}" style="margin:0; width:100%; box-sizing:border-box;">
+            <input id="swal-stock" type="number" class="custom-swal-input" value="${p.stock}" style="margin:0; width:100%; box-sizing:border-box;">
           </div>
           <div style="flex:1;">
             <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Precio</label>
-            <input id="swal-precio" type="number" class="swal2-input" value="${p.precio}" style="margin:0; width:100%; box-sizing:border-box;">
+            <input id="swal-precio" type="number" class="custom-swal-input" value="${p.precio}" style="margin:0; width:100%; box-sizing:border-box;">
           </div>
         </div>
       </div>
