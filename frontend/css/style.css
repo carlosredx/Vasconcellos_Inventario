@@ -253,6 +253,7 @@ body {
 }
 
 .content {
+  display: none;
   animation: fadeIn 0.25s ease-out;
 }
 
