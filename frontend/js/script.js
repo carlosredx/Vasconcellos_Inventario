@@ -202,50 +202,72 @@ function mostrarSoloCategoria(cat) {
 ============================================================ */
 
 async function abrirAgregarProducto() {
-  const { value: nombre } = await Swal.fire({
-    title: "Nombre del producto",
-    input: "text",
-    inputPlaceholder: "Ej: Aceite 10W-40",
+  const { value: formValues } = await Swal.fire({
+    title: "Nuevo Producto",
+    html: `
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div>
+          <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Nombre del producto</label>
+          <input id="swal-nombre" class="swal2-input" placeholder="Ej: Aceite 10W-40" style="margin:0; width:100%; box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Categoría / Etiqueta</label>
+          <input id="swal-etiqueta" class="swal2-input" placeholder="Ej: Aceite Motor..." style="margin:0; width:100%; box-sizing:border-box;">
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div style="flex:1;">
+            <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Stock inicial</label>
+            <input id="swal-stock" type="number" class="swal2-input" value="0" style="margin:0; width:100%; box-sizing:border-box;">
+          </div>
+          <div style="flex:1;">
+            <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Precio</label>
+            <input id="swal-precio" type="number" class="swal2-input" value="0" style="margin:0; width:100%; box-sizing:border-box;">
+          </div>
+        </div>
+      </div>
+    `,
+    focusConfirm: false,
     showCancelButton: true,
-  });
-  if (!nombre) return;
+    confirmButtonText: "Guardar",
+    cancelButtonText: "Cancelar",
+    customClass: {
+      popup: "swal-dark",
+      confirmButton: "swal-btn-confirm",
+      cancelButton: "swal-btn-cancel"
+    },
+    preConfirm: () => {
+      const nombre = document.getElementById("swal-nombre").value.trim();
+      const etiqueta = document.getElementById("swal-etiqueta").value.trim();
+      const stock = document.getElementById("swal-stock").value;
+      const precio = document.getElementById("swal-precio").value;
 
-  const { value: etiqueta } = await Swal.fire({
-    title: "Categoría / etiqueta",
-    input: "text",
-    inputPlaceholder: "Ej: Aceite Motor, Aditivos...",
-    showCancelButton: true,
+      if (!nombre) {
+        Swal.showValidationMessage("El nombre es obligatorio");
+        return false;
+      }
+      return { nombre, etiqueta, stock: Number(stock), precio: Number(precio) };
+    }
   });
-  if (!etiqueta) return;
 
-  const { value: stock } = await Swal.fire({
-    title: "Stock inicial",
-    input: "number",
-    inputValue: 0,
-    showCancelButton: true,
-  });
-  if (stock === null) return;
-
-  const { value: precio } = await Swal.fire({
-    title: "Precio",
-    input: "number",
-    inputValue: 0,
-    showCancelButton: true,
-  });
-  if (precio === null) return;
+  if (!formValues) return;
 
   await fetch(`${API}/productos`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      nombre_producto: nombre,
-      etiqueta,
-      stock: Number(stock),
-      precio: Number(precio),
+      nombre_producto: formValues.nombre,
+      etiqueta: formValues.etiqueta,
+      stock: formValues.stock,
+      precio: formValues.precio,
     }),
   });
 
-  Swal.fire("Guardado", "Producto agregado correctamente", "success");
+  Swal.fire({
+    title: "¡Guardado!",
+    text: "Producto agregado correctamente",
+    icon: "success",
+    customClass: { popup: "swal-dark", confirmButton: "swal-btn-confirm" }
+  });
   await mostrar();
   await cargarCategorias();
 }
@@ -254,50 +276,72 @@ async function editarProducto(id) {
   const p = productosCache.find((x) => x.id === id);
   if (!p) return;
 
-  const { value: nombre } = await Swal.fire({
-    title: "Editar nombre",
-    input: "text",
-    inputValue: p.nombre_producto,
+  const { value: formValues } = await Swal.fire({
+    title: "Editar Producto",
+    html: `
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div>
+          <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Nombre del producto</label>
+          <input id="swal-nombre" class="swal2-input" value="${p.nombre_producto.replace(/"/g, '&quot;')}" style="margin:0; width:100%; box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Categoría / Etiqueta</label>
+          <input id="swal-etiqueta" class="swal2-input" value="${(p.etiqueta || '').replace(/"/g, '&quot;')}" style="margin:0; width:100%; box-sizing:border-box;">
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div style="flex:1;">
+            <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Stock</label>
+            <input id="swal-stock" type="number" class="swal2-input" value="${p.stock}" style="margin:0; width:100%; box-sizing:border-box;">
+          </div>
+          <div style="flex:1;">
+            <label style="text-align:left; display:block; margin-bottom:4px; opacity:0.8; font-size:14px;">Precio</label>
+            <input id="swal-precio" type="number" class="swal2-input" value="${p.precio}" style="margin:0; width:100%; box-sizing:border-box;">
+          </div>
+        </div>
+      </div>
+    `,
+    focusConfirm: false,
     showCancelButton: true,
-  });
-  if (!nombre) return;
+    confirmButtonText: "Actualizar",
+    cancelButtonText: "Cancelar",
+    customClass: {
+      popup: "swal-dark",
+      confirmButton: "swal-btn-confirm",
+      cancelButton: "swal-btn-cancel"
+    },
+    preConfirm: () => {
+      const nombre = document.getElementById("swal-nombre").value.trim();
+      const etiqueta = document.getElementById("swal-etiqueta").value.trim();
+      const stock = document.getElementById("swal-stock").value;
+      const precio = document.getElementById("swal-precio").value;
 
-  const { value: etiqueta } = await Swal.fire({
-    title: "Editar categoría",
-    input: "text",
-    inputValue: p.etiqueta,
-    showCancelButton: true,
+      if (!nombre) {
+        Swal.showValidationMessage("El nombre es obligatorio");
+        return false;
+      }
+      return { nombre, etiqueta, stock: Number(stock), precio: Number(precio) };
+    }
   });
-  if (!etiqueta) return;
 
-  const { value: stock } = await Swal.fire({
-    title: "Editar stock",
-    input: "number",
-    inputValue: p.stock,
-    showCancelButton: true,
-  });
-  if (stock === null) return;
-
-  const { value: precio } = await Swal.fire({
-    title: "Editar precio",
-    input: "number",
-    inputValue: p.precio,
-    showCancelButton: true,
-  });
-  if (precio === null) return;
+  if (!formValues) return;
 
   await fetch(`${API}/productos/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      nombre_producto: nombre,
-      etiqueta,
-      stock: Number(stock),
-      precio: Number(precio),
+      nombre_producto: formValues.nombre,
+      etiqueta: formValues.etiqueta,
+      stock: formValues.stock,
+      precio: formValues.precio,
     }),
   });
 
-  Swal.fire("Correcto", "Producto actualizado", "success");
+  Swal.fire({
+    title: "¡Correcto!",
+    text: "Producto actualizado",
+    icon: "success",
+    customClass: { popup: "swal-dark", confirmButton: "swal-btn-confirm" }
+  });
   await mostrar();
   await cargarCategorias();
 }
@@ -309,11 +353,22 @@ async function eliminarProducto(id) {
     icon: "warning",
     showCancelButton: true,
     confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar",
+    customClass: {
+      popup: "swal-dark",
+      confirmButton: "swal-btn-confirm",
+      cancelButton: "swal-btn-cancel"
+    }
   });
   if (!r.isConfirmed) return;
 
   await fetch(`${API}/productos/${id}`, { method: "DELETE" });
-  Swal.fire("Eliminado", "Producto borrado", "success");
+  Swal.fire({
+    title: "Eliminado",
+    text: "Producto borrado",
+    icon: "success",
+    customClass: { popup: "swal-dark", confirmButton: "swal-btn-confirm" }
+  });
   await mostrar();
   await cargarCategorias();
 }
