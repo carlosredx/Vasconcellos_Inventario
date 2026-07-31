@@ -34,3 +34,6 @@ backend/.env
 *.log
 *.tmp
 *.bak
+
+# Respaldos de base de datos local (NO SUBIR)
+local_db_backups/
