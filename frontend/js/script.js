@@ -1103,7 +1103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const loadingText = document.querySelector(".loading-text");
   const messages = [
     "Conectando a la base de datos...",
-    "Encendiendo motores del servidor (puede tardar unos 30 seg)...",
+    "Encendiendo motores del servidor (puede tardar unos 20 seg)...",
     "Afinando detalles, casi listos...",
     "Preparando el inventario para ti..."
   ];
